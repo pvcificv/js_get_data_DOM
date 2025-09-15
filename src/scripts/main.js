@@ -1,12 +1,11 @@
 'use strict';
 
 const nodes = document.querySelectorAll('span.population');
-
 const values = [];
 
 nodes.forEach((el) => {
   const raw = (el.textContent || '').trim();
-  const cleaned = raw.replace(/,/g, '').trim();
+  const cleaned = raw.replace(/,/g, '').trim(); // только запятые
 
   if (/^\d+$/.test(cleaned)) {
     values.push(Number(cleaned));
