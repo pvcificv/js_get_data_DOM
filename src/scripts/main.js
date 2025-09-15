@@ -13,15 +13,15 @@ function detectSep(arr) {
 
 const sep = detectSep(texts);
 
-function toNumber(raw, col) {
+function toNumber(raw, separator) {
   const esc = (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 
   const re =
-    col === ' '
+    separator === ' '
       ? new RegExp(`[\\s\\u00A0\\u202F]`, 'g')
-      : col === '\u00A0' || col === '\u202F'
+      : separator === '\u00A0' || separator === '\u202F'
         ? new RegExp(`[\\u00A0\\u202F]`, 'g')
-        : new RegExp(esc(col), 'g');
+        : new RegExp(esc(separator), 'g');
 
   const cleaned = (raw || '').replace(re, '').trim();
   const n = Number(cleaned);
@@ -31,10 +31,10 @@ function toNumber(raw, col) {
 
 const values = texts.map((t) => toNumber(t, sep)).filter((n) => n !== null);
 
-function format(n, seps) {
+function format(n, separator) {
   const s = Math.trunc(n).toString();
 
-  return s.replace(/\B(?=(\d{3})+(?!\d))/g, seps);
+  return s.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
 }
 
 const $total = document.querySelector('.total-population');
